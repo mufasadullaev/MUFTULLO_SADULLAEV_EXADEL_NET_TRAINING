@@ -12,35 +12,48 @@ namespace Task2._1
         {
             int a, i, f = 1;
             int b;
-            double bresult;
+            double bResult;
             
             Console.Write("Calculate the factorial of a given number:\n");
             Console.Write("Input the number A: ");
             a = Convert.ToInt32(Console.ReadLine());
-
             Console.Write("Calculate the natural logarithm of a given number:\n");
             Console.Write("Input the number B: ");
             b = Convert.ToInt32(Console.ReadLine());
-            if (a >= 0 && a <= 5)
+
+            if (a >= 0 && a <= 5 & b >= 0 && b <= 100)
             {
                 for (i = 1; i <= a; i++)
                     f = f * i;
-                    var e = f * 0.05;
-                Console.Write("The Factorial of {0} is: {1}\n", a, e);
-                
+                    double aResult = Math.Round(f * 0.05, 2);
+                Console.Write($"The Factorial of {a} is: {aResult}\n");
+                bResult = Math.Log(b);
+                bResult = Math.Round(bResult, 2);
+                Console.WriteLine($"The Natural Logarithm of {b} is: {bResult}");
+
+                if ( aResult > bResult )
+                {
+                    Console.WriteLine($"Number 'a' = {aResult} and more than number 'b' = {bResult}");
+                }
+                else if ( aResult < bResult)
+                {
+                    Console.WriteLine($"Number 'a' = {aResult} and less than number 'b' = {bResult}");
+                }
+                else
+                {
+                    Console.WriteLine($"Number 'a' = {aResult} and equal to number 'b' = {bResult}");
+                }
             }
-            else
+            else if (a < 0 || a > 5)
             {
-                Console.WriteLine("Input must be from 0 to 5 inclusively!");
+                Console.WriteLine("Input A must be from 0 to 5 inclusively!");
+
             }
 
-            if (b >=0 && a <= 100)
+            else 
             {
-                bresult = Math.Log(b);
-                bresult = Math.Round(bresult, 2);
-                Console.WriteLine($"The number B is equal to: {bresult}");
+                Console.WriteLine("Input B must be from 0 to 100 inclusively!");
             }
-            
             Console.ReadLine();
         }
     }
