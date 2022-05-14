@@ -13,36 +13,66 @@ namespace Task2._2
         static void Main(string[] args)
         {
             DirectoryInfo d = new DirectoryInfo(@"C:\Users\hacke\MUFTULLO_SADULLAEV_EXADEL_NET_TRAINING\Task2\Task2\Task2.2");
-            FileInfo[] f = d.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
             string newFile = @"C:\Users\hacke\MUFTULLO_SADULLAEV_EXADEL_NET_TRAINING\Task2\Task2\Task2.2\NewFile.txt";
+            /*            string fileLoc = AppDomain.CurrentDomain.BaseDirectory;
+                        DirectoryInfo d = new DirectoryInfo(fileLoc);*/
+            
+            FileInfo[] f = d.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
+/*            string newFile = $"{fileLoc}\\NewFile.txt";*/
             int fileNum = f.Length;
+            List<string[]> result = new List<string[]>();
             for(int i = 0; i < fileNum; i++)
             {
+                /*string myText = File.ReadAllText($"{fileLoc}\\File{i}.txt");*/
                 string filepath = $"C:\\Users\\hacke\\MUFTULLO_SADULLAEV_EXADEL_NET_TRAINING\\Task2\\Task2\\Task2.2\\File{i}.txt";
                 string myText = File.ReadAllText($"{filepath}");
-                string myCleanTxt = Regex.Replace(myText, @"[^a-zA-Z\s*]+", "");
-
+                string myCleanTxt = Regex.Replace(myText, @"[^a-zA-Z\s]+", "");
                 string[] myResult = myCleanTxt.Split(' ');
-                string newReverse = "";
+                string uprLow = "";
                 Console.WriteLine($"\nInitial String: {myText}");
-                
                 for (int x = myResult.Length - 1; x >= 0; x--)
                 {
-                    newReverse += myResult[x] + " ";
+                    /*newReverse += myResult[x] + " ";*/
+                    char[] myResultChar = myResult[x].ToCharArray();
+                    /*for (int y = myResultChar.Length - 1; x >= 0; x--)*/
+                    int len = myResultChar.Length;
+                    string upr = "";
+                    string low = "";
+                    char ch;
+                    for (int y = 0; y < len; y++)
+                    {
+                        ch = myResultChar[y];
+                        if (ch >= 'A' && ch <= 'Z')
+                        {
+                            upr += ch;
+                        }
+                        else
+                        {
+                            low += ch;
+                        }
+                        uprLow = upr + low;
+                    }
+                    if (string.IsNullOrEmpty(uprLow))
+                    {
+                        Console.WriteLine($"String {i} is empty");
+                    }
+                    else
+                    {
+                        myResult[x] = uprLow;
+                    }
                 }
-                
-                var endResult = newReverse.Substring(0, newReverse.Length - 1);
-                Console.Write($"Reversed Clean String: {endResult}\n\n");
-                using (StreamWriter sw = File.CreateText(newFile))
-                {
-                    sw.WriteLine(endResult);
-                    /*File.Delete($"{filepath}");*/
-                }
+                result.Add(myResult);
+                File.Delete($"{filepath}");
             }
-            Console.ReadLine();
-            
-              
-              
+            result = result.OrderBy(i => i.Length).ToList();
+            using (StreamWriter sw = File.CreateText(newFile))
+            {
+                result.ForEach(i => {
+                    Console.WriteLine(string.Join(" ", i));
+                    sw.WriteLine(string.Join(" ", i));
+                });
+            }
+            Console.ReadLine();  
         }
     }
 }
