@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Roman",
+        "surname": "Terehovich",
+        "age": 15,
+        "city": "Pinsk"
+    },
+    {
+        "name": "Ali",
+        "surname": "Alo",
+        "age": 20,
+        "city": "Kashkent"
+    },
+    {
+        "name": "Buka",
+        "surname": "Beka",
+        "age": 16,
+        "city": "Roscow"
+    },
+    {
+        "name": "Marshall",
+        "surname": "Mathers",
+        "age": 32,
+        "city": "OldYork"
+    },
+    {
+        "name": "Elyor",
+        "surname": "Coder",
+        "age": 21,
+        "city": "Roscow"
+    },
+    {
+        "name": "Adrik",
+        "surname": "Arutyunov",
+        "age": 75,
+        "city": "Mukus"
+    }
+]
