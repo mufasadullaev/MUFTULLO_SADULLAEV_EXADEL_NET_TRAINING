@@ -15,14 +15,32 @@ namespace Task3._2
             using (StreamReader city = new StreamReader("../../city.json"))
             using (StreamReader people = new StreamReader("../../inhabitant.json"))
             {
-                string cityJson = city.ReadToEnd();
-                string peopleJson = people.ReadToEnd();
-                dynamic cityArray = JsonConvert.DeserializeObject(cityJson);
-                dynamic peopleArray = JsonConvert.DeserializeObject(peopleJson);
-
+                string cJson = city.ReadToEnd();
+                string pJson = people.ReadToEnd();
+                dynamic cityArray = JsonConvert.DeserializeObject(cJson);
+                dynamic peopleArray = JsonConvert.DeserializeObject(pJson);
+                foreach (var c in cityArray)
+                {
+                    if ( c["population"] > 50000)
+                    {
+                        foreach (var p in peopleArray)
+                        {
+                            if (p["city"] == c["city"])
+                            {
+                                if (p["age"] > 15 && p["age"] < 65)
+                                {
+                                    Console.WriteLine($"{p["name"]} {p["surname"]} is employable");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{p["name"]} {p["surname"]} is not employable");
+                                }
+                            }
+                        }
+                    }
+                }
             }
             Console.ReadLine();
         }
-
     }
 }

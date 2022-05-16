@@ -1,7 +1,11 @@
 [
     {
+        "city": "OldYork",
+        "population": 791000
+    },
+    {
         "city": "Pinsk",
-        "population": 51000
+        "population": 59000
     },
     {
         "city": "Roscow",
@@ -14,9 +18,5 @@
     {
         "city": "Mukus",
         "population": 9000
-    },
-    {
-        "city": "OldYork",
-        "population": 791000
     }
 ]

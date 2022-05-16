@@ -15,12 +15,6 @@
         "name": "Buka",
         "surname": "Beka",
         "age": 16,
-        "city": "Roscow"
-    },
-    {
-        "name": "Marshall",
-        "surname": "Mathers",
-        "age": 32,
         "city": "OldYork"
     },
     {
@@ -30,9 +24,21 @@
         "city": "Roscow"
     },
     {
+        "name": "Marshall",
+        "surname": "Mathers",
+        "age": 32,
+        "city": "OldYork"
+    },
+    {
         "name": "Adrik",
         "surname": "Arutyunov",
         "age": 75,
         "city": "Mukus"
+    },
+    {
+        "name": "Mufa",
+        "surname": "Sad",
+        "age": 20,
+        "city": "Pinsk"
     }
 ]
