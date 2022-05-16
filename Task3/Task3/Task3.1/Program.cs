@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Task3._1
@@ -10,6 +11,29 @@ namespace Task3._1
     {
         static void Main(string[] args)
         {
+            Dictionary<char, LinkedList<string>> myDictionary = new Dictionary<char, LinkedList<string>>();
+            char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            Console.Write("Input: ");
+            string myInput = Console.ReadLine().Replace(@"[^a-zA-Z]", "");
+            string[] myArray = myInput.Split(' ');
+            foreach (char c in alphabet)
+            {
+                LinkedList<string> myList = new LinkedList<string>();
+                foreach (string item in myArray)
+                {
+                    if (item[0].ToString().ToUpper() == c.ToString())
+                    {
+                        myList.AddLast(item);
+                    }
+                }
+                myDictionary.Add(c, myList);
+                Console.Write($"\n{c}: ");
+                foreach (string name in myList)
+                {
+                    Console.Write($"'{name}' ");
+                }
+            }
+            Console.ReadLine();
         }
     }
 }
