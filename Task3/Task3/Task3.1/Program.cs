@@ -14,8 +14,9 @@ namespace Task3._1
             Dictionary<char, LinkedList<string>> myDictionary = new Dictionary<char, LinkedList<string>>();
             char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
             Console.Write("Input: ");
-            string myInput = Console.ReadLine().Replace(@"[^a-zA-Z]", "");
-            string[] myArray = myInput.Split(' ');
+            string myInput = Console.ReadLine();
+            string myCleanInput = Regex.Replace(myInput, @"[^a-zA-Z\s]+", "");
+            string[] myArray = myCleanInput.Split(' ');
             foreach (char c in alphabet)
             {
                 LinkedList<string> myList = new LinkedList<string>();
