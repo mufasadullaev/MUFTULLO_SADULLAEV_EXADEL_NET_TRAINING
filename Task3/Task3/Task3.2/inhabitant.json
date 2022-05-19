@@ -40,5 +40,17 @@
         "surname": "Sad",
         "age": 20,
         "city": "Pinsk"
+    },
+    {
+        "name": "Jalol",
+        "surname": "Sad",
+        "age": 96,
+        "city": "Pinsk"
+    },
+    {
+        "name": "Sad",
+        "surname": "Mad",
+        "age": 67,
+        "city": "Pinsk"
     }
 ]

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Task3._2
 {
@@ -12,32 +13,23 @@ namespace Task3._2
     {
         static void Main(string[] args)
         {
-            using (StreamReader city = new StreamReader("../../city.json"))
-            using (StreamReader people = new StreamReader("../../inhabitant.json"))
+            string json1 = File.ReadAllText("../../inhabitant.json");
+            string json2 = File.ReadAllText("../../city.json");
+            var jsonPerson = JsonConvert.DeserializeObject<List<People>>(json1);
+            var jsonCity = JsonConvert.DeserializeObject<List<People>>(json2);
+            var employablePerson = from p in jsonPerson
+                                   join c in jsonCity on p.city equals c.city
+                                   where c.population > 50000
+                                   select p;
+            foreach (var i in employablePerson)
             {
-                string cJson = city.ReadToEnd();
-                string pJson = people.ReadToEnd();
-                dynamic cityArray = JsonConvert.DeserializeObject(cJson);
-                dynamic peopleArray = JsonConvert.DeserializeObject(pJson);
-                foreach (var c in cityArray)
+                if (i.age > 15 && i.age < 65)
                 {
-                    if ( c["population"] > 50000)
-                    {
-                        foreach (var p in peopleArray)
-                        {
-                            if (p["city"] == c["city"])
-                            {
-                                if (p["age"] > 15 && p["age"] < 65)
-                                {
-                                    Console.WriteLine($"{p["name"]} {p["surname"]} is employable");
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"{p["name"]} {p["surname"]} is not employable");
-                                }
-                            }
-                        }
-                    }
+                    Console.WriteLine($"{i.name} {i.surname} is employable");
+                }
+                else
+                {
+                    Console.WriteLine($"{i.name} {i.surname} is not employable");
                 }
             }
             Console.ReadLine();
