@@ -1,0 +1,7 @@
+﻿CREATE TRIGGER [AfterInsertTrigger]
+	ON [dbo].[Class]
+	FOR DELETE, INSERT, UPDATE
+	AS
+	BEGIN
+		SET NOCOUNT ON
+	END
