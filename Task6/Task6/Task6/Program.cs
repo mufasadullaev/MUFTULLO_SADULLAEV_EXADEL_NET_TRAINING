@@ -24,15 +24,20 @@ namespace Task6
             }
             if (method == 1)
             {
+                var watch = new System.Diagnostics.Stopwatch();
+                watch.Start();
                 Console.WriteLine("\nAsyncronion method");
-                Console.WriteLine();
+                var myAsyncObject = new AsyncFunc();
+                myAsyncObject.AsyncTaskOne();
+                Thread.Sleep(watch.Elapsed);
+                watch.Stop();
+                Console.WriteLine($"\nExecution Time: {watch.ElapsedMilliseconds} ms");
             }
             else if (method == 2)
             {
                 var watch = new System.Diagnostics.Stopwatch();
                 watch.Start();
                 Console.WriteLine("\nMulti-threaded method");
-                Console.WriteLine();
                 ThreadFunc threadFunc = new ThreadFunc();
 
                 Thread fileOneCaller = new Thread(new ThreadStart(threadFunc.FileOne));
