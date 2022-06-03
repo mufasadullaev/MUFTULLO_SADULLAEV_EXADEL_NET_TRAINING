@@ -1,64 +1,70 @@
 ﻿using System;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Task5.Models;
 
 namespace Task5
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
+        {
+            return await ReadAsync();
+        }
+        public async static Task<int> ReadAsync()
         {
             Menu();
-            int userInput = Convert.ToInt32(Console.ReadLine());
-            if (userInput == 1)
+            using (var schoolContext = new SchoolContext())
             {
-                using (var schoolContext = new SchoolContext())
+                int userInput = Convert.ToInt32(Console.ReadLine());
+                if (userInput == 1)
                 {
                     Console.WriteLine("New subject name: ");
                     var newSubject = Console.ReadLine();
-                    var mySubject = new Subject { Name = newSubject};
+                    var mySubject = new Subject { Name = newSubject };
                     schoolContext.Subjects.Add(mySubject);
-                    schoolContext.SaveChanges();
+                    await schoolContext.SaveChangesAsync();
                 }
-            }
-            else if (userInput == 2)
-            {
-                using (var schoolContext = new SchoolContext())
+                else if (userInput == 2)
                 {
-                    Console.Write("Choose subject ID: ");
-                    int subjectId = Convert.ToInt32(Console.ReadLine());
-                    var getSubject = schoolContext.Subjects.Find(subjectId);
+                    var getSubject = await GetSubject();
                     Console.Write("New subject name: ");
                     var newSubject = Console.ReadLine();
                     getSubject.Name = newSubject;
-                    schoolContext.SaveChanges();
+                    await schoolContext.SaveChangesAsync();
+                    Console.WriteLine("Subject name updated to: {0}", getSubject.Name);
                 }
-            }
-            else if (userInput == 3)
-            {
-                using (var schoolContext = new SchoolContext())
+                else if (userInput == 3)
                 {
-                    Console.Write("Choose subject ID: \n\n");
-                    int subjectId = Convert.ToInt32(Console.ReadLine());
-                    var getSubject = schoolContext.Subjects.Find(subjectId);
+                    var getSubject = await GetSubject();
                     schoolContext.Subjects.Remove(getSubject);
-                    schoolContext.SaveChanges();
+                    await schoolContext.SaveChangesAsync();
                 }
-            }
-            else if (userInput == 4)
-            {
-                using (var schoolContext = new SchoolContext())
+                else if (userInput == 4)
                 {
-                    Console.Write("Choose subject ID: ");
-                    int subjectId = Convert.ToInt32(Console.ReadLine());
-                    var getSubject = schoolContext.Subjects.Find(subjectId);
+                    var getSubject = await GetSubject();
                     Console.WriteLine(getSubject.Name);
-                    Console.ReadLine();
+                }
+                else if (userInput == 5)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine("Choose a correct option!");
                 }
             }
-            else if (userInput == 5)
+            Console.WriteLine('\n');
+            return await ReadAsync();
+        }
+        public static async Task<Subject> GetSubject()
+        {
+            using (var schoolContext = new SchoolContext())
             {
-                Environment.Exit(0);
+                Console.Write("Choose subject ID: ");
+                int subjectId = Convert.ToInt32(Console.ReadLine());
+                return await schoolContext.Subjects.FindAsync(subjectId);
             }
         }
         public static void Menu()
